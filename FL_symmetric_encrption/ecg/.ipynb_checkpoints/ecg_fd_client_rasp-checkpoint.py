@@ -182,7 +182,7 @@ def send_msg(sock, msg, encrypt=True):
 
 def recv_msg(sock):
     # read message length and unpack it into an integer
-    raw_msglen = recvall(sock, 4)
+    raw_msglen = recvall(sock, 4, False)
     if not raw_msglen:
         return None
         
