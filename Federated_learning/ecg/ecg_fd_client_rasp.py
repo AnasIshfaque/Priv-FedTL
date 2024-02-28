@@ -7,7 +7,7 @@
 # In[ ]:
 
 
-users = 2 # number of clients
+users = 3 # number of clients
 
 
 # In[1]:
@@ -110,7 +110,7 @@ client_order = int(input("client_order(start from 0): "))
 
 
 num_traindata = 13244 // users
-
+print(f'num_traindata: {num_traindata}\n')
 
 # ## Data load
 
@@ -334,7 +334,7 @@ send_msg(s, len(train_dataset))
 for r in range(rounds):  # loop over the dataset multiple times
     weights = recv_msg(s)
     ecg_net.load_state_dict(weights)
-    ecg_net.eval()
+    ecg_net.train()
     for local_epoch in range(local_epochs):
         
         for i, data in enumerate(tqdm(trainloader, ncols=100, desc='Round '+str(r+1)+'_'+str(local_epoch+1))):
