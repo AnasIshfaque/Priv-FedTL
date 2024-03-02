@@ -7,7 +7,7 @@
 # In[3]:
 
 
-users = 3 # number of clients
+users = 2 # number of clients
 
 
 # In[4]:
