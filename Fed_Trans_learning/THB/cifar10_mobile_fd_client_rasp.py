@@ -133,7 +133,7 @@ part_tr = indices[num_traindata * client_order : num_traindata * (client_order +
 
 
 # trainset = torchvision.datasets.CIFAR10 (root=root_path, train=True, download=True, transform=transform)
-trainset = datasets.ImageFolder(os.path.join(split_dir,'train'), transform)
+trainset = datasets.ImageFolder(os.path.join(root_path,'train'), transform)
 
 trainset_sub = Subset(trainset, part_tr)
 
