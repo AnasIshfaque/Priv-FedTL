@@ -108,7 +108,7 @@ client_order = int(input("client_order(start from 0): "))
 # In[8]:
 
 
-num_traindata = 327 // users
+num_traindata = 328 // users
 
 
 # ## Data load
@@ -120,12 +120,12 @@ num_traindata = 327 // users
 
 mean = np.array([0.485,0.456,0.406])
 std = np.array([0.229,0.224,0.225])
-transform = transforms.Compose([transforms.RandomResizedCrop(224), transforms.RandomHorizontalFlip(), transforms.ToTensor(), transforms.Normalize(mean,std)])
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean,std)])
 
 from torch.utils.data import Subset
 
 
-indices = list(range(327))
+indices = list(range(328))
 
 part_tr = indices[num_traindata * client_order : num_traindata * (client_order + 1)]
 
@@ -295,7 +295,7 @@ for r in range(rounds):  # loop over the dataset multiple times
     sq_model.train()
     for local_epoch in range(local_epochs):
         
-        for i, data in enumerate(train_loader):
+        for i, data in enumerate(tqdm(train_loader, ncols=100, desc='Round '+str(r+1)+'_'+str(local_epoch+1))):
             
             # get the inputs; data is a list of [inputs, labels]
             inputs, labels = data
@@ -310,8 +310,6 @@ for r in range(rounds):  # loop over the dataset multiple times
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
-
-        print(f'Round_{r+1}_{local_epoch+1} | loss: {loss}')
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
     send_msg(s, msg)
