@@ -7,7 +7,7 @@
 # In[3]:
 
 
-users = 2 # number of clients
+users = 3 # number of clients
 
 
 # In[4]:
@@ -108,7 +108,7 @@ client_order = int(input("client_order(start from 0): "))
 # In[8]:
 
 
-num_traindata = 328 // users
+num_traindata = 327 // users
 
 
 # ## Data load
@@ -138,6 +138,7 @@ trainset = datasets.ImageFolder(os.path.join(root_path,'train'), transform)
 
 trainset_sub = Subset(trainset, part_tr)
 
+print(f'trainset size: {len(trainset)}, trainset_sub: {len(trainset_sub)}')
 train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=4, shuffle=True, num_workers=0)
 
 # testset = torchvision.datasets.CIFAR10 (root=root_path, train=False, download=True, transform=transform)
@@ -155,7 +156,7 @@ classes = ('Bluetooth', 'Humidity', 'Transistor')
 
 
 train_total_batch = len(train_loader)
-print(train_total_batch)
+print(f'len(train_loader): {train_total_batch}')
 # test_batch = len(test_loader)
 # print(test_batch)
 
