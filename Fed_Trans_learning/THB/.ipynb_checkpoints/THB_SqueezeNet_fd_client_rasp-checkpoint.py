@@ -125,7 +125,7 @@ transform = transforms.Compose([transforms.RandomResizedCrop(224), transforms.Ra
 from torch.utils.data import Subset
 
 
-indices = list(range(328))
+indices = list(range(327))
 
 part_tr = indices[num_traindata * client_order : num_traindata * (client_order + 1)]
 
