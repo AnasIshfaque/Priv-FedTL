@@ -139,7 +139,7 @@ trainset = datasets.ImageFolder(os.path.join(root_path,'train'), transform)
 trainset_sub = Subset(trainset, part_tr)
 
 print(f'trainset size: {len(trainset)}, trainset_sub: {len(trainset_sub)}')
-train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=32, shuffle=True, num_workers=0)
+train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=4, shuffle=True, num_workers=0)
 
 # testset = torchvision.datasets.CIFAR10 (root=root_path, train=False, download=True, transform=transform)
 # test_loader = torch.utils.data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=0)
@@ -295,7 +295,7 @@ for r in range(rounds):  # loop over the dataset multiple times
     sq_model.train()
     for local_epoch in range(local_epochs):
         
-        for i, data in enumerate(tqdm(train_loader, ncols=100, desc='Round '+str(r+1)+'_'+str(local_epoch+1))):
+        for i, data in enumerate(train_loader):
             
             # get the inputs; data is a list of [inputs, labels]
             inputs, labels = data
@@ -310,6 +310,8 @@ for r in range(rounds):  # loop over the dataset multiple times
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
+
+        print(f'Round_{r+1}_{local_epoch+1} | loss: {loss}')
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
     send_msg(s, msg)
