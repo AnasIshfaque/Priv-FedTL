@@ -139,7 +139,7 @@ trainset = datasets.ImageFolder(os.path.join(root_path,'train'), transform)
 trainset_sub = Subset(trainset, part_tr)
 
 print(f'trainset size: {len(trainset)}, trainset_sub: {len(trainset_sub)}')
-train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=4, shuffle=True, num_workers=0)
+train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=32, shuffle=True, num_workers=0)
 
 # testset = torchvision.datasets.CIFAR10 (root=root_path, train=False, download=True, transform=transform)
 # test_loader = torch.utils.data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=0)
