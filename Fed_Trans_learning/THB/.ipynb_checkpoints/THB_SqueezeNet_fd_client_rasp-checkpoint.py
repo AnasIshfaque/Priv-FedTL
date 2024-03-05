@@ -108,7 +108,7 @@ client_order = int(input("client_order(start from 0): "))
 # In[8]:
 
 
-num_traindata = 328 // users
+num_traindata = 262 // users
 
 
 # ## Data load
@@ -125,9 +125,16 @@ transform = transforms.Compose([transforms.RandomResizedCrop(224),transforms.Ran
 from torch.utils.data import Subset
 
 
-indices = list(range(328))
+indices = list(range(262))
 
-part_tr = indices[num_traindata * client_order : num_traindata * (client_order + 1)]
+lower_idx = num_traindata * client_order
+upper_idx = num_traindata * (client_order + 1)
+
+#giving the extra data instance to the last client
+if (client_order+1 == users):
+    upper_idx += 1
+    
+part_tr = indices[lower_idx : upper_idx]
 
 
 # In[10]:
