@@ -120,7 +120,7 @@ num_traindata = 328 // users
 
 mean = np.array([0.485,0.456,0.406])
 std = np.array([0.229,0.224,0.225])
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean,std)])
+transform = transforms.Compose([transforms.RandomResizedCrop(224),transforms.RandomHorizontalFlip(),transforms.ToTensor(),transforms.Normalize(mean,std)])
 
 from torch.utils.data import Subset
 
