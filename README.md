@@ -15,3 +15,6 @@ pip3 install -U scikit-learn scipy matplotlib
 ```
 pip3 install tqdm
 ```
+```
+pip install tenseal
+```
