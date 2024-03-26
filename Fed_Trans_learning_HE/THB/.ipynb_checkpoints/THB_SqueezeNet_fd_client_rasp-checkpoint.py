@@ -7,7 +7,7 @@
 # In[3]:
 
 
-users = 3 # number of clients
+users = 5 # number of clients
 
 
 # In[4]:
@@ -32,7 +32,7 @@ from torch.utils.data import Dataset, DataLoader
 
 import time
 import copy
-
+import tenseal as ts
 from tqdm import tqdm
 
 
@@ -167,14 +167,19 @@ print(f'len(train_loader): {train_total_batch}')
 # test_batch = len(test_loader)
 # print(test_batch)
 
+# loading the TenSEAL context
+with open('shared_context.pkl', 'rb') as inp:
+    loaded_context_bytes = pickle.load(inp)
+
+context = ts.context_from(loaded_context_bytes)
+sk = context.secret_key()
+context.make_context_public()
+
 # -*- coding: utf-8 -*-
 """
 Created on Thu Nov  1 14:23:31 2018
 @author: tshzzz
 """
-
-import torch
-import torch.nn as nn
 
 # In[15]:
 
