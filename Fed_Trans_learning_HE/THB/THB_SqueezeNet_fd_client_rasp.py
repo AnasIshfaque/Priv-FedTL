@@ -340,8 +340,8 @@ for r in range(rounds):  # loop over the dataset multiple times
             optimizer.step()
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
-    for i in range(last_layer_list_len):    
-        send_msg(s, msg) # send encrypted weights one tensor at a time
+    for param in msg:    
+        send_msg(s, param) # send encrypted weights one tensor at a time
 
 print('Finished Training')
 
