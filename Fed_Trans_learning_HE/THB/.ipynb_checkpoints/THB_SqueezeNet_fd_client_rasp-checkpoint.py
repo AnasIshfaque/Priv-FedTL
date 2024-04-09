@@ -32,7 +32,7 @@ from torch.utils.data import Dataset, DataLoader
 
 import time
 import copy
-
+import tenseal as ts
 from tqdm import tqdm
 
 
@@ -167,14 +167,19 @@ print(f'len(train_loader): {train_total_batch}')
 # test_batch = len(test_loader)
 # print(test_batch)
 
+# loading the TenSEAL context
+with open('../../playground/Developing H.E for FL/shared_context.pkl', 'rb') as inp:
+    shared_context_bin = pickle.load(inp)
+
+shared_context = ts.context_from(shared_context_bin)
+sk = shared_context.secret_key()
+# shared_context.make_context_public()
+
 # -*- coding: utf-8 -*-
 """
 Created on Thu Nov  1 14:23:31 2018
 @author: tshzzz
 """
-
-import torch
-import torch.nn as nn
 
 # In[15]:
 
@@ -213,14 +218,19 @@ local_epochs = 1 # default
 # In[17]:
 
 
-def send_msg(sock, msg):
+def send_msg(sock, msg, encrypt=True):
     # prefix each message with a 4-byte length in network byte order
-    msg = pickle.dumps(msg)
+    if encrypt:
+        plain_ten = ts.plain_tensor(msg)
+        encrypted_ten = ts.ckks_tensor(shared_context, plain_ten)
+        msg = encrypted_ten.serialize()
+    else:        
+        msg = pickle.dumps(msg)
+        
     msg = struct.pack('>I', len(msg)) + msg
-    # encrypt msg
     sock.sendall(msg)
 
-def recv_msg(sock):
+def recv_msg(sock, decrypt=True):
     # read message length and unpack it into an integer
     raw_msglen = recvall(sock, 4)
     if not raw_msglen:
@@ -228,7 +238,11 @@ def recv_msg(sock):
     msglen = struct.unpack('>I', raw_msglen)[0]
     # read the message data
     msg =  recvall(sock, msglen)
-    msg = pickle.loads(msg)
+    if decrypt:
+        msg = ts.ckks_tensor_from(shared_context, msg)
+        msg = torch.tensor(msg.decrypt(sk).tolist())
+    else:
+        msg = pickle.loads(msg)
     return msg
 
 def recvall(sock, n):
@@ -280,11 +294,12 @@ print("timmer start!")
 # In[21]:
 
 
-msg = recv_msg(s)
+msg = recv_msg(s, False)
 rounds = msg['rounds'] 
 client_id = msg['client_id']
 local_epochs = msg['local_epoch']
-send_msg(s, len(trainset_sub))
+last_layer_list_len = msg['last_layer_list_len']
+send_msg(s, len(trainset_sub), False)
 
 
 # In[22]:
@@ -294,7 +309,13 @@ send_msg(s, len(trainset_sub))
 # train
 for r in range(rounds):  # loop over the dataset multiple times
     
-    last_layer_list = recv_msg(s)
+    if r == 0:
+        last_layer_list = recv_msg(s, False) # first round recieve plain list
+    else:
+        last_layer_list = []
+        for i in range(last_layer_list_len):
+            param = recv_msg(s)
+            last_layer_list.append(param)
     # Updating the global weight's last layer
     local_weights['classifier.1.weight'] = last_layer_list[0]
     local_weights['classifier.1.bias'] = last_layer_list[1]
@@ -319,7 +340,8 @@ for r in range(rounds):  # loop over the dataset multiple times
             optimizer.step()
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
-    send_msg(s, msg)
+    for param in msg:    
+        send_msg(s, param) # send encrypted weights one tensor at a time
 
 print('Finished Training')
 
