@@ -272,9 +272,10 @@ for r in range(rounds):  # loop over the dataset multiple times
     for local_epoch in range(local_epochs):
         
         for i, data in enumerate(tqdm(train_loader, ncols=100, desc='Round '+str(r+1)+'_'+str(local_epoch+1))):
+            
+            # get the inputs; data is a list of [inputs, labels]
+            inputs, labels = data
             if len(labels) == BATCH_SIZE:
-                # get the inputs; data is a list of [inputs, labels]
-                inputs, labels = data
                 inputs = inputs.to(device)
                 labels = labels.to(device)
     
