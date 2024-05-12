@@ -167,7 +167,7 @@ train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=4, shuffle=T
 train_total_batch = len(train_loader)
 print(f'len(train_loader): {train_total_batch}')
 
-sq_model = models.squeezenet1_1(weights=SqueezeNet1_1_Weights.DEFAULT)
+sq_model = models.squeezenet1_1(weights=True)
 sq_model.to(device)
 
 #freezing previous layers
