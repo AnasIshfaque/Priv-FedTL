@@ -157,10 +157,10 @@ image_datasets = {x:DataClass(split=x, transform=data_transforms[x], download=Tr
 
 trainset_sub = Subset(image_datasets['train'], part_tr)
 
-print(f'trainset size: {len(image_datasets['train'])}, trainset_sub: {len(trainset_sub)}')
+print(f"trainset size: {len(image_datasets['train'])}, trainset_sub: {len(trainset_sub)}")
 train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=4, shuffle=True, num_workers=0)
 
-classes = ('Bluetooth', 'Humidity', 'Transistor')
+# classes = ('Bluetooth', 'Humidity', 'Transistor')
 
 # ### Number of total batches
 train_total_batch = len(train_loader)
@@ -174,10 +174,9 @@ for param in sq_model.features.parameters():
     param.requires_grad = False
 
 # modifying the last layer to match desired output class
-num_classes = 3
 in_ftrs = sq_model.classifier[1].in_channels
 features = list(sq_model.classifier.children())[:-3] # Remove last 3 layers
-features.extend([nn.Conv2d(in_ftrs, num_classes, kernel_size=1)]) # Add
+features.extend([nn.Conv2d(in_ftrs, n_classes, kernel_size=1)]) # Add
 features.extend([nn.ReLU(inplace=True)]) # Add
 features.extend([nn.AdaptiveAvgPool2d(output_size=(1,1))]) # Add
 sq_model.classifier = nn.Sequential(*features)
