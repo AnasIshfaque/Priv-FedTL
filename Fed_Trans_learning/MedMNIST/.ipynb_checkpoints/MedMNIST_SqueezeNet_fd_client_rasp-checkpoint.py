@@ -283,6 +283,8 @@ for r in range(rounds):  # loop over the dataset multiple times
 
             # forward + backward + optimize
             outputs = sq_model(inputs)
+            _,preds = torch.max(outputs,1)
+            labels = labels.squeeze().long()
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
