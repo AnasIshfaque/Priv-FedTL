@@ -46,6 +46,7 @@ from gpiozero import CPUTemperature
 import medmnist
 from medmnist import INFO, Evaluator
 from datetime import datetime
+from torch.utils.data import Subset
 
 # In[2]:
 
