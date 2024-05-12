@@ -135,8 +135,8 @@ lower_idx = num_traindata * client_order
 upper_idx = num_traindata * (client_order + 1)
 
 #giving the extra data instance to the last client
-if (client_order+1 == users):
-    upper_idx += 1
+# if (client_order+1 == users):
+#     upper_idx += 1
     
 part_tr = indices[lower_idx : upper_idx]
 
@@ -150,7 +150,7 @@ DataClass = getattr(medmnist, info['python_class'])
 class_labels = info['label']
 print(info['label'])
 
-BATCH_SIZE = 128
+BATCH_SIZE = 4
 
 sets = ['train','test']
 image_datasets = {x:DataClass(split=x, transform=data_transforms[x], download=True, size=128)
@@ -159,7 +159,7 @@ image_datasets = {x:DataClass(split=x, transform=data_transforms[x], download=Tr
 trainset_sub = Subset(image_datasets['train'], part_tr)
 
 print(f"trainset size: {len(image_datasets['train'])}, trainset_sub: {len(trainset_sub)}")
-train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=4, shuffle=True, num_workers=0)
+train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
 
 # classes = ('Bluetooth', 'Humidity', 'Transistor')
 
@@ -272,22 +272,22 @@ for r in range(rounds):  # loop over the dataset multiple times
     for local_epoch in range(local_epochs):
         
         for i, data in enumerate(tqdm(train_loader, ncols=100, desc='Round '+str(r+1)+'_'+str(local_epoch+1))):
-            
-            # get the inputs; data is a list of [inputs, labels]
-            inputs, labels = data
-            inputs = inputs.to(device)
-            labels = labels.to(device)
-
-            # zero the parameter gradients
-            optimizer.zero_grad()
-
-            # forward + backward + optimize
-            outputs = sq_model(inputs)
-            _,preds = torch.max(outputs,1)
-            labels = labels.squeeze().long()
-            loss = criterion(outputs, labels)
-            loss.backward()
-            optimizer.step()
+            if len(labels) == BATCH_SIZE:
+                # get the inputs; data is a list of [inputs, labels]
+                inputs, labels = data
+                inputs = inputs.to(device)
+                labels = labels.to(device)
+    
+                # zero the parameter gradients
+                optimizer.zero_grad()
+    
+                # forward + backward + optimize
+                outputs = sq_model(inputs)
+                _,preds = torch.max(outputs,1)
+                labels = labels.squeeze().long()
+                loss = criterion(outputs, labels)
+                loss.backward()
+                optimizer.step()
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
     send_msg(s, msg)
