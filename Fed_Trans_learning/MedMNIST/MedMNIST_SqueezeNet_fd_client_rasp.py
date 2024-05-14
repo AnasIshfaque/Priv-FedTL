@@ -37,8 +37,6 @@ from torch.autograd import Variable
 from torch.optim import Adam, lr_scheduler
 from torch import tensor
 from torch.utils.data import Dataset, DataLoader
-import torchmetrics
-from torchmetrics.classification import Accuracy, Precision, Recall, F1Score
 
 from tqdm import tqdm
 from pathlib import Path
