@@ -135,8 +135,8 @@ lower_idx = num_traindata * client_order
 upper_idx = num_traindata * (client_order + 1)
 
 #giving the extra data instance to the last client
-# if (client_order+1 == users):
-#     upper_idx += 1
+if (client_order+1 == users):
+    upper_idx += 1
     
 part_tr = indices[lower_idx : upper_idx]
 
@@ -275,20 +275,20 @@ for r in range(rounds):  # loop over the dataset multiple times
             
             # get the inputs; data is a list of [inputs, labels]
             inputs, labels = data
-            if len(labels) == BATCH_SIZE:
-                inputs = inputs.to(device)
-                labels = labels.to(device)
-    
-                # zero the parameter gradients
-                optimizer.zero_grad()
-    
-                # forward + backward + optimize
-                outputs = sq_model(inputs)
-                _,preds = torch.max(outputs,1)
-                labels = labels.squeeze().long()
-                loss = criterion(outputs, labels)
-                loss.backward()
-                optimizer.step()
+            # if len(labels) == BATCH_SIZE:
+            inputs = inputs.to(device)
+            labels = labels.to(device)
+
+            # zero the parameter gradients
+            optimizer.zero_grad()
+
+            # forward + backward + optimize
+            outputs = sq_model(inputs)
+            _,preds = torch.max(outputs,1)
+            labels = labels.squeeze().long()
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
     send_msg(s, msg)
