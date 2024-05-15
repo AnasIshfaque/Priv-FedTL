@@ -95,7 +95,7 @@ start_time = datetime.now()
 start_time = start_time.strftime("%H:%M:%S")
 print("Main code exe started at ", start_time)
 
-torch.manual_seed(42)
+torch.manual_seed(1)
 
 # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 device = "cpu"

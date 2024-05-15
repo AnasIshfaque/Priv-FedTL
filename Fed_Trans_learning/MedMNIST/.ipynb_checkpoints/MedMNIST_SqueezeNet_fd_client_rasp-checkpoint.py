@@ -29,16 +29,14 @@ import pickle
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+# import torch.nn.functional as F
 import torchvision
 from torchvision import datasets,transforms,models
 import torch.optim as optim
-from torch.autograd import Variable
+# from torch.autograd import Variable
 from torch.optim import Adam, lr_scheduler
 from torch import tensor
 from torch.utils.data import Dataset, DataLoader
-import torchmetrics
-from torchmetrics.classification import Accuracy, Precision, Recall, F1Score
 
 from tqdm import tqdm
 from pathlib import Path
@@ -97,7 +95,7 @@ start_time = datetime.now()
 start_time = start_time.strftime("%H:%M:%S")
 print("Main code exe started at ", start_time)
 
-torch.manual_seed(42)
+torch.manual_seed(1)
 
 # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 device = "cpu"
@@ -159,7 +157,7 @@ image_datasets = {x:DataClass(split=x, transform=data_transforms[x], download=Tr
 trainset_sub = Subset(image_datasets['train'], part_tr)
 
 print(f"trainset size: {len(image_datasets['train'])}, trainset_sub: {len(trainset_sub)}")
-train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+train_loader = torch.utils.data.DataLoader(trainset_sub, batch_size=BATCH_SIZE, shuffle=True, num_workers=0, drop_last=True)
 
 # classes = ('Bluetooth', 'Humidity', 'Transistor')
 
