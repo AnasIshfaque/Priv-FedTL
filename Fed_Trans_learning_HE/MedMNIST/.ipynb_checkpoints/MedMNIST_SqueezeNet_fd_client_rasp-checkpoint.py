@@ -298,7 +298,7 @@ for r in range(rounds):  # loop over the dataset multiple times
     if r == 0:
         last_layer_list = recv_msg(s, False) # first round recieve plain list
     else:
-        for i in len(last_layer_list):
+        for i in range(len(last_layer_list)):
             param = recv_msg(s)
             last_layer_list.append(param)
     # Updating the global weight's last layer
