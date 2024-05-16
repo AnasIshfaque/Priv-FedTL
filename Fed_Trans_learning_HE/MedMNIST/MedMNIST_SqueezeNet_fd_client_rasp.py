@@ -202,6 +202,8 @@ optimizer = optim.SGD(sq_model.parameters(), lr=lr, momentum=0.9)
 rounds = 10 # default
 local_epochs = 1 # default
 
+total_encrypt_time = 0
+total_decrypt_time = 0
 
 # ## Socket initialization
 # ### Required socket functions
@@ -211,10 +213,14 @@ local_epochs = 1 # default
 
 def send_msg(sock, msg, encrypt=True):
     # prefix each message with a 4-byte length in network byte order
+    global total_encrypt_time
     if encrypt:
+        encrypt_start = time.time()
         plain_ten = ts.plain_tensor(msg)
         encrypted_ten = ts.ckks_tensor(shared_context, plain_ten)
         msg = encrypted_ten.serialize()
+        encrypt_end = time.time()
+        total_encrypt_time += (encrypt_end - encrypt_start)
     else:        
         msg = pickle.dumps(msg)
         
@@ -224,6 +230,7 @@ def send_msg(sock, msg, encrypt=True):
 
 def recv_msg(sock, decrypt=True):
     # read message length and unpack it into an integer
+    global total_decrypt_time
     raw_msglen = recvall(sock, 4)
     if not raw_msglen:
         return None
@@ -231,8 +238,11 @@ def recv_msg(sock, decrypt=True):
     # read the message data
     msg =  recvall(sock, msglen)
     if decrypt:
+        decrypt_start = time.time()
         msg = ts.ckks_tensor_from(shared_context, msg)
         msg = torch.tensor(msg.decrypt(sk).tolist())
+        decrypt_end = time.time()
+        total_decrypt_time += (decrypt_end - decrypt_start)
     else:
         msg = pickle.loads(msg)
     return msg
@@ -280,13 +290,15 @@ send_msg(s, len(trainset_sub), False)
 
 # update weights from server
 # train
+
+last_layer_list = []
+
 for r in range(rounds):  # loop over the dataset multiple times
     
     if r == 0:
         last_layer_list = recv_msg(s, False) # first round recieve plain list
     else:
-        last_layer_list = []
-        for i in range(last_layer_list_len):
+        for i in len(last_layer_list):
             param = recv_msg(s)
             last_layer_list.append(param)
     # Updating the global weight's last layer
