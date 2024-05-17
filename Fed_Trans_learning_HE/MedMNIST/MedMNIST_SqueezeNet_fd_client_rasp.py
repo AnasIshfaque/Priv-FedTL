@@ -294,13 +294,14 @@ send_msg(s, len(trainset_sub), False)
 last_layer_list = []
 
 for r in range(rounds):  # loop over the dataset multiple times
-    
+    print(f'recieving global weights in round {r}...')
     if r == 0:
         last_layer_list = recv_msg(s, False) # first round recieve plain list
     else:
         for i in range(len(last_layer_list)):
             param = recv_msg(s)
             last_layer_list.append(param)
+    print(f'global weights recieved in round {r}!')
     # Updating the global weight's last layer
     local_weights['classifier.1.weight'] = last_layer_list[0]
     local_weights['classifier.1.bias'] = last_layer_list[1]
@@ -327,8 +328,10 @@ for r in range(rounds):  # loop over the dataset multiple times
             optimizer.step()
     msg = [sq_model.state_dict()['classifier.1.weight'], sq_model.state_dict()['classifier.1.bias']]
     # msg = mobile_net.state_dict()
+    print(f'sending encrypted local weights in round {r}...')
     for param in msg:    
         send_msg(s, param) # send encrypted weights one tensor at a time
+    print(f'local weights sent in round {r}!')
 
 print('Finished Training')
 
@@ -336,4 +339,7 @@ printPerformance()
 
 end_time = time.time()  #store end time
 print("Training Time: {} sec".format(end_time - start_time))
+print(f'Total encryption time: {total_encrypt_time}')
+print(f'Total decryption time: {total_decrypt_time}')
+
 
