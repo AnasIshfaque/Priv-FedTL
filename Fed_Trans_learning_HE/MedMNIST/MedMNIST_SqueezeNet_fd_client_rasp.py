@@ -282,6 +282,7 @@ msg = recv_msg(s, False)
 rounds = msg['rounds'] 
 client_id = msg['client_id']
 local_epochs = msg['local_epoch']
+last_layer_list_len = msg['last_layer_list_len']
 send_msg(s, len(trainset_sub), False)
 
 
@@ -291,14 +292,13 @@ send_msg(s, len(trainset_sub), False)
 # update weights from server
 # train
 
-last_layer_list = []
-
 for r in range(rounds):  # loop over the dataset multiple times
     print(f'recieving global weights in round {r}...')
     if r == 0:
         last_layer_list = recv_msg(s, False) # first round recieve plain list
     else:
-        for i in range(len(last_layer_list)):
+        last_layer_list = []
+        for i in range(last_layer_list_len):
             param = recv_msg(s)
             last_layer_list.append(param)
     print(f'global weights recieved in round {r}!')
