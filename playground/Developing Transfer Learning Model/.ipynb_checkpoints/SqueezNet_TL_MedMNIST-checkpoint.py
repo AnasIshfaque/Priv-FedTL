@@ -7,6 +7,7 @@ import numpy as np
 import torchvision
 from torchvision import datasets,transforms,models
 from torch.utils.data import DataLoader
+from torch.utils.data import Subset
 from torch.autograd import Variable
 from torch.optim import lr_scheduler
 import matplotlib.pyplot as plt
@@ -25,6 +26,7 @@ from gpiozero import CPUTemperature
 import medmnist
 from medmnist import INFO, Evaluator
 from datetime import datetime
+import random
 
 torch.manual_seed(42)
 
@@ -276,19 +278,39 @@ def fineTune(model_name, dataset_name):
 
     data_transforms = get_transforms()
 
-    BATCH_SIZE = 128
+    BATCH_SIZE = 4
 
     sets = ['train','test']
     image_datasets = {x:DataClass(split=x, transform=data_transforms[x], download=True, size=128)
                     for x in ['train','test']}
+    
+    # using only a part of the training data to make fair comparision with FL systems
+    num_data_parts = 4
+    num_traindata = 4708 // num_data_parts
 
-    dataloaders = {'train': torch.utils.data.DataLoader(image_datasets['train'],batch_size=BATCH_SIZE,
+    indices = list(range(4708))
+
+    client_order = random.randint(0, num_data_parts-1) # randomly choosing a part
+    lower_idx = num_traindata * client_order
+    upper_idx = num_traindata * (client_order + 1)
+    
+    #giving the extra data instance to the last client
+    if (client_order+1 == users):
+        upper_idx += 1
+        
+    part_tr = indices[lower_idx : upper_idx]
+
+    trainset_sub = Subset(image_datasets['train'], part_tr)
+    
+    dataloaders = {'train': torch.utils.data.DataLoader(trainset_sub,batch_size=BATCH_SIZE,
                                                 shuffle=True,num_workers=0),
                    'test': torch.utils.data.DataLoader(image_datasets['test'],batch_size=2*BATCH_SIZE,
                                                 shuffle=True,num_workers=0)
                   }
 
-    dataset_sizes = {x:len(image_datasets[x]) for x in ['train','test']}
+    # dataset_sizes = {x:len(image_datasets[x]) for x in ['train','test']}
+    dataset_sizes = {'train': len(trainset_sub),
+                     'test': len(image_datasets['test'])}
     
     print(dataset_sizes['train'])
     
@@ -312,7 +334,7 @@ def fineTune(model_name, dataset_name):
     pretrained_model.to(device)
     
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(pretrained_model.parameters(),lr=0.01, momentum=0.9)
+    optimizer = optim.SGD(pretrained_model.parameters(),lr=0.01)
     
     #scheduler
     step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
@@ -336,21 +358,13 @@ def fineTune(model_name, dataset_name):
     torch.save(obj=model_ft.state_dict(),
                f=MODEL_SAVE_PATH)
 
-    # Find the process ID (PID) of the bash script
-    pid_command = "pgrep -f '/bin/bash ./check_device.sh'"
-    pid_process = subprocess.Popen(pid_command, shell=True, stdout=subprocess.PIPE)
-    pid_output, _ = pid_process.communicate()
-    bash_pids = pid_output.decode().strip().split('\n')
-    
-    if bash_pids:
-        os.kill(int(bash_pids[0]), signal.SIGTERM)
-        print(f"Bash script with PID {pid} terminated successfully.")
-    else:
-        print("Bash script is not running.")
 
 
 
 # finetune the model
 fineTune(model_name, dataset_name)
+
+process.kill()
+process.wait()
 
 printPerformance()
