@@ -303,7 +303,7 @@ def fineTune(model_name, dataset_name):
     trainset_sub = Subset(image_datasets['train'], part_tr)
     
     dataloaders = {'train': torch.utils.data.DataLoader(trainset_sub,batch_size=BATCH_SIZE,
-                                                shuffle=True,num_workers=0),
+                                                shuffle=True,num_workers=0, drop_last=True),
                    'test': torch.utils.data.DataLoader(image_datasets['test'],batch_size=2*BATCH_SIZE,
                                                 shuffle=True,num_workers=0)
                   }
