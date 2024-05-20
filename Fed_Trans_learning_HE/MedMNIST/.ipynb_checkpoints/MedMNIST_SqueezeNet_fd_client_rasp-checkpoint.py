@@ -105,7 +105,7 @@ device = "cpu"
 client_order = int(input("client_order(start from 0): "))
 
 
-num_traindata = 4708 // users # divide training instances evenly to each clients
+num_traindata = 541 // users # divide training instances evenly to each clients
 
 
 # ## Data load
@@ -129,7 +129,7 @@ data_transforms = {
   ])
 }
 
-indices = list(range(4708))
+indices = list(range(541))
 
 lower_idx = num_traindata * client_order
 upper_idx = num_traindata * (client_order + 1)
