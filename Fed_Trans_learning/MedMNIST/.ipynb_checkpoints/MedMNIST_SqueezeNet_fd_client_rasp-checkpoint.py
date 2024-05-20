@@ -34,7 +34,7 @@ import torchvision
 from torchvision import datasets,transforms,models
 import torch.optim as optim
 # from torch.autograd import Variable
-from torch.optim import Adam, lr_scheduler
+from torch.optim import lr_scheduler
 from torch import tensor
 from torch.utils.data import Dataset, DataLoader
 
@@ -89,13 +89,13 @@ def printPerformance():
 
 printPerformance()
 
-subprocess.Popen(["./check_device.sh"])
+process = subprocess.Popen(["../../playground/Developing Transfer Learning Model/check_device.sh"])
 
 start_time = datetime.now()
 start_time = start_time.strftime("%H:%M:%S")
 print("Main code exe started at ", start_time)
 
-torch.manual_seed(1)
+torch.manual_seed(42)
 
 # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 device = "cpu"
@@ -187,6 +187,7 @@ local_weights = copy.deepcopy(sq_model.state_dict())
 lr = 0.01
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(sq_model.parameters(), lr=lr, momentum=0.9)
+step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
 
 rounds = 10 # default
 local_epochs = 1 # default
@@ -298,3 +299,5 @@ printPerformance()
 end_time = time.time()  #store end time
 print("Training Time: {} sec".format(end_time - start_time))
 
+process.kill()
+process.wait()

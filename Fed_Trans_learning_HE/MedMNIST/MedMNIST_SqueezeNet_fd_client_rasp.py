@@ -34,7 +34,7 @@ import torchvision
 from torchvision import datasets,transforms,models
 import torch.optim as optim
 # from torch.autograd import Variable
-from torch.optim import Adam, lr_scheduler
+from torch.optim import lr_scheduler
 from torch import tensor
 from torch.utils.data import Dataset, DataLoader
 
@@ -91,7 +91,7 @@ def printPerformance():
 
 printPerformance()
 
-subprocess.Popen(["./check_device.sh"])
+process = subprocess.Popen(["../../playground/Developing Transfer Learning Model/check_device.sh"])
 
 start_time = datetime.now()
 start_time = start_time.strftime("%H:%M:%S")
@@ -198,6 +198,7 @@ local_weights = copy.deepcopy(sq_model.state_dict())
 lr = 0.01
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(sq_model.parameters(), lr=lr, momentum=0.9)
+step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
 
 rounds = 10 # default
 local_epochs = 1 # default
@@ -342,4 +343,5 @@ print("Training Time: {} sec".format(end_time - start_time))
 print(f'Total encryption time: {total_encrypt_time}')
 print(f'Total decryption time: {total_decrypt_time}')
 
-
+process.kill()
+process.wait()

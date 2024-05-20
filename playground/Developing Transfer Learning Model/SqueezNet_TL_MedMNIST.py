@@ -8,7 +8,7 @@ import torchvision
 from torchvision import datasets,transforms,models
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
-from torch.optim import Adam, lr_scheduler
+from torch.optim import lr_scheduler
 import matplotlib.pyplot as plt
 import time
 import os
@@ -312,7 +312,7 @@ def fineTune(model_name, dataset_name):
     pretrained_model.to(device)
     
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(pretrained_model.parameters(),lr=0.01)
+    optimizer = optim.SGD(pretrained_model.parameters(),lr=0.01, momentum=0.9)
     
     #scheduler
     step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)

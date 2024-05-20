@@ -1,6 +1,11 @@
 #!/bin/bash
 
-CSV_FILE="system_metrics.csv"
+# Get the username of the current user
+username=$(whoami)
+
+# Construct the dynamic CSV filename
+CSV_FILE="$username.csv"
+#CSV_FILE="system_metrics.csv"
 
 # Function to get CPU usage
 get_cpu_usage() {
@@ -60,6 +65,7 @@ append_metrics_to_csv() {
     echo "$timestamp,$cpu_usage,$ram_usage,$cpu_temperature,$power_draw" >> "$CSV_FILE"
 }
 
+echo "" > "$CSV_FILE"
 
 while true; do
 

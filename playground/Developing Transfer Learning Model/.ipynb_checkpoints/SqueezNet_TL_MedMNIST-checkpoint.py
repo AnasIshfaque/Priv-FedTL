@@ -8,7 +8,7 @@ import torchvision
 from torchvision import datasets,transforms,models
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
-from torch.optim import Adam, lr_scheduler
+from torch.optim import lr_scheduler
 import matplotlib.pyplot as plt
 import time
 import os
@@ -18,16 +18,17 @@ import random
 import shutil
 import glob
 import torchmetrics
-import pathlib
+from pathlib import Path
 from torchmetrics.classification import Accuracy, Precision, Recall, F1Score
-from sklearn.model_selection import StratifiedKFold
+# from sklearn.model_selection import StratifiedKFold
 from gpiozero import CPUTemperature
 import medmnist
 from medmnist import INFO, Evaluator
 from datetime import datetime
 
+torch.manual_seed(42)
 
-dataset_name = "breastmnist"
+dataset_name = "pneumoniamnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
@@ -88,14 +89,14 @@ def get_transforms():
     std = np.array([0.229,0.224,0.225])
     data_transforms = {
           'train':transforms.Compose([
-              # transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
+              transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
               transforms.RandomResizedCrop(224),
               transforms.RandomHorizontalFlip(),
               transforms.ToTensor(),
               transforms.Normalize(mean,std)
           ]),
           'test':transforms.Compose([
-              # transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
+              transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
               transforms.Resize(256),
               transforms.CenterCrop(224),
               transforms.ToTensor(),
@@ -103,7 +104,7 @@ def get_transforms():
           ])
       }
     return data_transforms
-def train_model(model, dataset_name, criterion, optimizer, scheduler,  dataloaders, dataset_sizes, num_classes=3, num_epochs=25):
+def train_model(model, dataset_name, criterion, optimizer, scheduler,  dataloaders, dataset_sizes, num_classes=3, num_epochs=10):
     since = time.time()
     # torch.cuda.reset_peak_memory_stats(device)
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -289,6 +290,7 @@ def fineTune(model_name, dataset_name):
 
     dataset_sizes = {x:len(image_datasets[x]) for x in ['train','test']}
     
+    print(dataset_sizes['train'])
     
     pretrained_model = models.squeezenet1_1(pretrained=True)
     
@@ -310,13 +312,13 @@ def fineTune(model_name, dataset_name):
     pretrained_model.to(device)
     
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(pretrained_model.parameters(),lr=0.01)
+    optimizer = optim.SGD(pretrained_model.parameters(),lr=0.01, momentum=0.9)
     
     #scheduler
     step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
     
     model_ft, metrics = train_model(pretrained_model, dataset_name, criterion, optimizer, step_lr_scheduler, 
-                                    dataloaders, dataset_sizes, num_classes, num_epochs=25)
+                                    dataloaders, dataset_sizes, n_classes, num_epochs=10)
 
     
     #save the best model
