@@ -141,7 +141,7 @@ if (client_order+1 == users):
 part_tr = indices[lower_idx : upper_idx]
 
 # Loading MedMNIST dataset
-info = INFO['pneumoniamnist']
+info = INFO[dataset_name]
 task = info['task']
 n_channels = info['n_channels']
 n_classes = len(info['label'])
