@@ -295,7 +295,7 @@ def fineTune(model_name, dataset_name):
     upper_idx = num_traindata * (client_order + 1)
     
     #giving the extra data instance to the last client
-    if (client_order+1 == users):
+    if (client_order+1 == num_data_parts):
         upper_idx += 1
         
     part_tr = indices[lower_idx : upper_idx]
