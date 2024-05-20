@@ -48,7 +48,7 @@ from torch.utils.data import Subset
 
 # In[2]:
 
-dataset_name = "pneumoniamnist"
+dataset_name = "breastmnist"
 model_name = "squeezenet"
 
 def getFreeDescription():

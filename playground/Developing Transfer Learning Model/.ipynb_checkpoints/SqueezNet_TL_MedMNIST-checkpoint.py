@@ -30,7 +30,7 @@ import random
 
 torch.manual_seed(42)
 
-dataset_name = "pneumoniamnist"
+dataset_name = "breastmnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
@@ -77,7 +77,7 @@ def print_metrics(metrics):
 
 printPerformance()
 
-subprocess.Popen(["./check_device.sh"])
+process = subprocess.Popen(["./check_device.sh"])
 
 start_time = datetime.now()
 start_time = start_time.strftime("%H:%M:%S")
