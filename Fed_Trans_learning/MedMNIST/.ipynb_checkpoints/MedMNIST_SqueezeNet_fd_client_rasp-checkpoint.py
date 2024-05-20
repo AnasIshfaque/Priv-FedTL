@@ -187,7 +187,7 @@ local_weights = copy.deepcopy(sq_model.state_dict())
 lr = 0.01
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(sq_model.parameters(), lr=lr, momentum=0.9)
-step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
+# step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
 
 rounds = 10 # default
 local_epochs = 1 # default
