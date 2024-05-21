@@ -6,6 +6,7 @@ from torch import tensor
 import numpy as np
 import torchvision
 from torchvision import datasets,transforms,models
+from torchvision.models import SqueezeNet1_1_Weights
 from torch.utils.data import DataLoader
 from torch.utils.data import Subset
 from torch.autograd import Variable
@@ -314,7 +315,7 @@ def fineTune(model_name, dataset_name):
     
     print(dataset_sizes['train'])
     
-    pretrained_model = models.squeezenet1_1(pretrained=True)
+    pretrained_model = models.squeezenet1_1(weights=SqueezeNet1_1_Weights.DEFAULT)
     
     #freezing previous layers
     for param in pretrained_model.features.parameters():
