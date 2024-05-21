@@ -286,9 +286,9 @@ def fineTune(model_name, dataset_name):
     
     # using only a part of the training data to make fair comparision with FL systems
     num_data_parts = 4
-    num_traindata = 4708 // num_data_parts
+    num_traindata = 546 // num_data_parts
 
-    indices = list(range(4708))
+    indices = list(range(546))
 
     client_order = random.randint(0, num_data_parts-1) # randomly choosing a part
     lower_idx = num_traindata * client_order
