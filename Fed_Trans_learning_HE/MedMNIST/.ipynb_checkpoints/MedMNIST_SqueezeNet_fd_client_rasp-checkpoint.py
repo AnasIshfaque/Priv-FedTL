@@ -50,7 +50,7 @@ import tenseal as ts
 
 # In[2]:
 
-dataset_name = "breastmnist"
+dataset_name = "bloodmnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
@@ -105,7 +105,7 @@ device = "cpu"
 client_order = int(input("client_order(start from 0): "))
 
 
-num_traindata = 541 // users # divide training instances evenly to each clients
+num_traindata = 11959 // users # divide training instances evenly to each clients
 
 
 # ## Data load
@@ -114,14 +114,14 @@ mean = np.array([0.485,0.456,0.406])
 std = np.array([0.229,0.224,0.225])
 data_transforms = {
   'train':transforms.Compose([
-      transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
+      # transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
       transforms.RandomResizedCrop(224),
       transforms.RandomHorizontalFlip(),
       transforms.ToTensor(),
       transforms.Normalize(mean,std)
   ]),
   'test':transforms.Compose([
-      transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
+      # transforms.Grayscale(num_output_channels=3),  # Convert grayscale to RGB
       transforms.Resize(256),
       transforms.CenterCrop(224),
       transforms.ToTensor(),
@@ -129,7 +129,7 @@ data_transforms = {
   ])
 }
 
-indices = list(range(541))
+indices = list(range(11959))
 
 lower_idx = num_traindata * client_order
 upper_idx = num_traindata * (client_order + 1)
@@ -197,7 +197,7 @@ local_weights = copy.deepcopy(sq_model.state_dict())
 
 lr = 0.01
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(sq_model.parameters(), lr=lr, momentum=0.9)
+optimizer = optim.SGD(sq_model.parameters(), lr=lr)
 step_lr_scheduler = lr_scheduler.StepLR(optimizer,step_size=7,gamma=0.1)
 
 rounds = 10 # default
