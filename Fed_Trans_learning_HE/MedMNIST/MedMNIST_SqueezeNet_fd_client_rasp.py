@@ -32,6 +32,7 @@ import torch.nn as nn
 # import torch.nn.functional as F
 import torchvision
 from torchvision import datasets,transforms,models
+from torchvision.models import SqueezeNet1_1_Weights
 import torch.optim as optim
 # from torch.autograd import Variable
 from torch.optim import lr_scheduler
@@ -176,7 +177,7 @@ shared_context = ts.context_from(shared_context_bin)
 sk = shared_context.secret_key()
 
 
-sq_model = models.squeezenet1_1(weights=True)
+sq_model = models.squeezenet1_1(weights=SqueezeNet1_1_Weights.DEFAULT)
 sq_model.to(device)
 
 #freezing previous layers
