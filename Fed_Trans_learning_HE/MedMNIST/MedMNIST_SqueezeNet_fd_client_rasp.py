@@ -51,7 +51,7 @@ import tenseal as ts
 
 # In[2]:
 
-dataset_name = "bloodmnist"
+dataset_name = "octmnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
@@ -106,7 +106,7 @@ device = "cpu"
 client_order = int(input("client_order(start from 0): "))
 
 
-num_traindata = 11959 // users # divide training instances evenly to each clients
+num_traindata = 97477 // users # divide training instances evenly to each clients
 
 
 # ## Data load
@@ -130,7 +130,7 @@ data_transforms = {
   ])
 }
 
-indices = list(range(11959))
+indices = list(range(97477))
 
 lower_idx = num_traindata * client_order
 upper_idx = num_traindata * (client_order + 1)
