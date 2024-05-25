@@ -221,6 +221,7 @@ def send_msg(sock, msg, encrypt=True):
     # prefix each message with a 4-byte length in network byte order
     global total_encrypt_time
     global sending_speeds
+    global total_compress_time
     if encrypt:
         encrypt_start = time.time()
         plain_ten = ts.plain_tensor(msg)
@@ -247,6 +248,7 @@ def send_msg(sock, msg, encrypt=True):
 def recv_msg(sock, decrypt=True):
     # read message length and unpack it into an integer
     global total_decrypt_time
+    global total_decompress_time
     raw_msglen = recvall(sock, 4)
     if not raw_msglen:
         return None
