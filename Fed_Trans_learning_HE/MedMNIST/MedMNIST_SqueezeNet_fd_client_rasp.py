@@ -22,6 +22,7 @@ import copy
 import random
 import shutil
 import glob
+import zlib
 
 import socket
 import struct
@@ -206,16 +207,20 @@ local_epochs = 1 # default
 
 total_encrypt_time = 0
 total_decrypt_time = 0
-
+total_compress_time = 0
+total_decompress_time = 0
 # ## Socket initialization
 # ### Required socket functions
 
 # In[17]:
 
+sending_speeds = []
+receiving_speeds = []
 
 def send_msg(sock, msg, encrypt=True):
     # prefix each message with a 4-byte length in network byte order
     global total_encrypt_time
+    global sending_speeds
     if encrypt:
         encrypt_start = time.time()
         plain_ten = ts.plain_tensor(msg)
@@ -226,9 +231,18 @@ def send_msg(sock, msg, encrypt=True):
     else:        
         msg = pickle.dumps(msg)
         
+    compress_start = time.time()
+    msg = zlib.compress(msg)
+    compress_end = time.time()
+    total_compress_time += (compress_end - compress_start)
+    
     msg = struct.pack('>I', len(msg)) + msg
+    msg_size = len(msg)
+    send_start = time.time()
     # encrypt msg
     sock.sendall(msg)
+    send_end = time.time()
+    sending_speeds.append(msg_size/(send_end - send_start)) # tracking the sending speed in bytes per sec
 
 def recv_msg(sock, decrypt=True):
     # read message length and unpack it into an integer
@@ -239,6 +253,12 @@ def recv_msg(sock, decrypt=True):
     msglen = struct.unpack('>I', raw_msglen)[0]
     # read the message data
     msg =  recvall(sock, msglen)
+    
+    decompress_start = time.time()
+    msg = zlib.decompress(msg)
+    decompress_end = time.time()
+    total_decompress_time += (decompress_end - decompress_start)
+    
     if decrypt:
         decrypt_start = time.time()
         msg = ts.ckks_tensor_from(shared_context, msg)
@@ -251,6 +271,8 @@ def recv_msg(sock, decrypt=True):
 
 def recvall(sock, n):
     # helper function to receive n bytes or return None if EOF is hit
+    global receiving_speeds
+    recv_start = time.time()
     data = b''
     while len(data) < n:
         packet = sock.recv(n - len(data))
@@ -258,6 +280,9 @@ def recvall(sock, n):
         if not packet:
             return None
         data += packet
+    recv_end = time.time()
+    data_size = len(data)
+    receiving_speeds.append(data_size/(recv_end - recv_start)) # tracking the receiving speed in bytes per sec
     return data
 
 
