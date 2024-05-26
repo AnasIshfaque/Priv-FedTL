@@ -370,8 +370,8 @@ end_time = time.time()  #store end time
 print("Training Time: {} sec".format(end_time - start_time))
 print(f'Total encryption time: {total_encrypt_time}')
 print(f'Total decryption time: {total_decrypt_time}')
-print(f'Total compression time: {total_compression_time}')
-print(f'Total decompression time: {total_decompression_time}')
+print(f'Total compression time: {total_compress_time}')
+print(f'Total decompression time: {total_decompress_time}')
 print(f'average sending speed: {sum(sending_speeds)/len(sending_speeds)}')
 print(f'average receiving speed: {sum(receiving_speeds)/len(receiving_speeds)}')
 
