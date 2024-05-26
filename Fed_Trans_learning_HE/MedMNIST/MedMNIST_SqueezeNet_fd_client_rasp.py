@@ -52,7 +52,7 @@ import tenseal as ts
 
 # In[2]:
 
-dataset_name = "breastmnist"
+dataset_name = "pneumoniamnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
