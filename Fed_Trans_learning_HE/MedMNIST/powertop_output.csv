@@ -1,0 +1,410 @@
+____________________________________________________________________
+			P o w e r T O P
+
+____________________________________________________________________
+ *  *  *   System Information   *  *  *
+
+PowerTOP Version;v2.11-1-g7ef7f79 ran at Tue May 28 12:20:01 2024
+
+Kernel Version;Linux version 6.1.21-v8+
+System Name;
+CPU Information;4
+OS Information;Debian GNU/Linux 11 (bullseye)
+
+Target: 1 units/s;System:  446.2 wakeup/s;CPU:  88.2% usage;GPU: 0 ops/s;GFX: 0.9 wakeups/s;VFS: 0 ops/s;
+
+____________________________________________________________________
+ *  *  *   Top 10 Power Consumers   *  *  *
+
+Usage;Events/s;Category;Description;PW Estimate
+ 74.3%; 0.00;Process;[PID 2287] python3 MedMNIST_SqueezeNet_fd_client_rasp.py ;  1.16 W  
+  0.7%; 95.3;Interrupt;[6] tasklet(softirq);  387 mW  
+  0.3%; 92.5;Interrupt;[2] IPI;  371 mW  
+  0.3%; 51.3;Interrupt;[37] mmc1;  207 mW  
+  0.9%; 42.1;Timer;tick_sched_timer;  180 mW  
+  1.4%; 36.7;Process;[PID 77] [kworker/u9:0];  167 mW  
+  6.6%; 0.00;Process;[PID 10705] powertop --time=1 --csv=powertop_output.csv ;  103 mW  
+  0.2%; 23.8;Interrupt;[7] sched(softirq); 97.1 mW  
+  0.0%; 20.2;kWork;brcmf_sdio_dataworker; 79.7 mW  
+  0.2%; 18.3;kWork;sdio_irq_work; 75.6 mW  
+
+____________________________________________________________________
+ *  *  *   Processor Idle State Report   *  *  *
+
+Package;0
+;
+;
+;
+
+CPU;0
+CPU;1
+CPU;2
+CPU;3
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+;;
+
+____________________________________________________________________
+ *  *  *   Processor Frequency Report   *  *  *
+
+Package;0
+ 600 MHz;   0.0% 
+ 700 MHz;   0.0% 
+ 800 MHz;   0.0% 
+ 900 MHz;   0.0% 
+1000 MHz;   0.0% 
+1100 MHz;   0.0% 
+1200 MHz;   0.0% 
+1300 MHz;   0.0% 
+1400 MHz;   0.0% 
+1500 MHz;   0.0% 
+1.60 GHz;   0.0% 
+1.71 GHz;   0.0% 
+1.80 GHz;   0.0% 
+1.91 GHz;   0.0% 
+Idle; 100.0% 
+;
+;
+;
+;
+
+CPU 0
+ 600 MHz;   0.0% 
+ 700 MHz;   0.0% 
+ 800 MHz;   0.0% 
+ 900 MHz;   0.0% 
+1000 MHz;   0.0% 
+1100 MHz;   0.0% 
+1200 MHz;   0.0% 
+1300 MHz;   0.0% 
+1400 MHz;   0.0% 
+1500 MHz;   0.0% 
+1.60 GHz;   0.0% 
+1.71 GHz;   0.0% 
+1.80 GHz;   0.0% 
+1.91 GHz;   0.0% 
+Idle; 100.0% 
+CPU 1
+ 600 MHz;   0.0% 
+ 700 MHz;   0.0% 
+ 800 MHz;   0.0% 
+ 900 MHz;   0.0% 
+1000 MHz;   0.0% 
+1100 MHz;   0.0% 
+1200 MHz;   0.0% 
+1300 MHz;   0.0% 
+1400 MHz;   0.0% 
+1500 MHz;   0.0% 
+1.60 GHz;   0.0% 
+1.71 GHz;   0.0% 
+1.80 GHz;   0.0% 
+1.91 GHz;   0.0% 
+Idle; 100.0% 
+CPU 2
+ 600 MHz;   0.0% 
+ 700 MHz;   0.0% 
+ 800 MHz;   0.0% 
+ 900 MHz;   0.0% 
+1000 MHz;   0.0% 
+1100 MHz;   0.0% 
+1200 MHz;   0.0% 
+1300 MHz;   0.0% 
+1400 MHz;   0.0% 
+1500 MHz;   0.0% 
+1.60 GHz;   0.0% 
+1.71 GHz;   0.0% 
+1.80 GHz;   0.0% 
+1.91 GHz;   0.0% 
+Idle; 100.0% 
+CPU 3
+ 600 MHz;   0.0% 
+ 700 MHz;   0.0% 
+ 800 MHz;   0.0% 
+ 900 MHz;   0.0% 
+1000 MHz;   0.0% 
+1100 MHz;   0.0% 
+1200 MHz;   0.0% 
+1300 MHz;   0.0% 
+1400 MHz;   0.0% 
+1500 MHz;   0.0% 
+1.60 GHz;   0.0% 
+1.71 GHz;   0.0% 
+1.80 GHz;   0.0% 
+1.91 GHz;   0.0% 
+Idle; 100.0% 
+;
+;
+;
+;
+;
+;
+;
+;
+
+____________________________________________________________________
+ *  *  *   Overview of Software Power Consumers   *  *  *
+
+Usage;Wakeups/s;GPU ops/s;Disk IO/s;GFX Wakeups/s;Category;Description;PW Estimate
+743.0 ms/s;;;;;Process;[PID 2287] python3 MedMNIST_SqueezeNet_fd_client_rasp.py ;  1.16 W  
+  6.8 ms/s; 95.3;;;;Interrupt;[6] tasklet(softirq);  387 mW  
+  3.5 ms/s; 92.5;;;;Interrupt;[2] IPI;  371 mW  
+  2.6 ms/s; 51.3;;;;Interrupt;[37] mmc1;  207 mW  
+  8.6 ms/s; 42.1;;;;Timer;tick_sched_timer;  180 mW  
+ 14.1 ms/s; 36.7;;;;Process;[PID 77] [kworker/u9:0];  167 mW  
+ 66.3 ms/s;;;;;Process;[PID 10705] powertop --time=1 --csv=powertop_output.csv ;  103 mW  
+  1.9 ms/s; 23.8;;;;Interrupt;[7] sched(softirq); 97.1 mW  
+ 21.0 us/s; 20.2;;;;kWork;brcmf_sdio_dataworker; 79.7 mW  
+  2.1 ms/s; 18.3;;;;kWork;sdio_irq_work; 75.6 mW  
+  1.0 ms/s; 15.6;;;;Process;[PID 15] [rcu_preempt]; 63.1 mW  
+  1.7 ms/s; 14.7;;;;Process;[PID 350] [brcmf_wdog/mmc1]; 60.6 mW  
+  1.9 ms/s; 11.0;;;;Interrupt;[3] net_rx(softirq); 46.4 mW  
+ 17.1 ms/s;;;;;Interrupt;[11] arch_timer; 26.7 mW  
+ 23.6 us/s;  4.6;;;;Interrupt;[31] eth0; 18.1 mW  
+128.1 us/s;  3.7;;;;kWork;dbs_work_handler; 14.7 mW  
+  1.2 ms/s;  1.8;;;  0.9;Process;[PID 571] /usr/bin/vncserver-x11-core -service ; 10.1 mW  
+  1.1 ms/s;  1.8;;;;Process;[PID 25] [ksoftirqd/2]; 8.94 mW  
+ 94.9 us/s;  1.8;;;;kWork;free_work; 7.39 mW  
+538.1 us/s;  0.9;;;;Process;[PID 2379] pt_main_thread; 4.46 mW  
+431.4 us/s;  0.9;;;;Process;[PID 2381] pt_main_thread; 4.29 mW  
+368.9 us/s;  0.9;;;;Process;[PID 2382] pt_main_thread; 4.19 mW  
+131.6 us/s;  0.9;;;;Process;[PID 655] /usr/libexec/rtkit-daemon ; 3.82 mW  
+108.5 us/s;  0.9;;;;Process;[PID 472] /usr/sbin/thd --triggers /etc/triggerhappy/triggers.d/ --socket /run/thd.socket --user nobody --deviceglob /dev/input; 3.79 mW  
+102.4 us/s;  0.9;;;;Timer;brcmf_sdio_watchdog; 3.78 mW  
+ 83.7 us/s;  0.9;;;;Process;[PID 656] /usr/libexec/rtkit-daemon ; 3.75 mW  
+ 29.9 us/s;  0.9;;;;Process;[PID 20] [ksoftirqd/1]; 3.67 mW  
+ 25.1 us/s;  0.9;;;;kWork;thermal_zone_device_check; 3.66 mW  
+ 16.5 us/s;  0.9;;;;kWork;vmstat_shepherd; 3.65 mW  
+  7.4 us/s;  0.9;;;;Timer;sched_rt_period_timer; 3.63 mW  
+  0.0 us/s;  0.9;;;;kWork;mmc_rescan; 3.62 mW  
+  1.7 ms/s;;;;;Process;[PID 10702] [kworker/0:0]; 2.62 mW  
+  1.0 ms/s;;;;;Interrupt;[9] RCU(softirq); 1.62 mW  
+  0.8 ms/s;;;;;Process;[PID 592] /usr/lib/xorg/Xorg :0 -seat seat0 -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch ; 1.23 mW  
+695.1 us/s;;;;;Interrupt;[37] mmc0; 1.08 mW  
+522.6 us/s;;;;;Process;[PID 2380] pt_main_thread;  815 uW  
+440.4 us/s;;;;;Process;[PID 10179] [kworker/3:2];  687 uW  
+277.0 us/s;;;;;Interrupt;[6] IPI;  432 uW  
+253.3 us/s;;;;;Timer;process_timeout;  395 uW  
+222.8 us/s;;;;;Process;[PID 10703] [kworker/2:1];  348 uW  
+195.4 us/s;;;;;Interrupt;[1] timer(softirq);  305 uW  
+153.5 us/s;;;;;Timer;delayed_work_timer_fn;  240 uW  
+150.2 us/s;;;;;Interrupt;[15] DMA IRQ;  234 uW  
+146.3 us/s;;;;;Process;[PID 14] [ksoftirqd/0];  228 uW  
+133.5 us/s;;;;;Timer;hrtimer_wakeup;  208 uW  
+120.9 us/s;;;;;Timer;igmp_gq_timer_expire;  189 uW  
+116.6 us/s;;;;;Process;[PID 359] [kworker/u9:1];  182 uW  
+ 87.1 us/s;;;;;Process;[PID 42] [kcompactd0];  136 uW  
+ 76.0 us/s;;;;;kWork;vmstat_update;  119 uW  
+ 50.0 us/s;;;;;Process;[PID 2790] [kworker/1:1];    0 mW  
+ 28.3 us/s;;;;;Process;[PID 2649] [kworker/2:3];    0 mW  
+ 17.9 us/s;;;;;Timer;tcp_orphan_update;    0 mW  
+ 12.7 us/s;;;;;Timer;neigh_timer_handler;    0 mW  
+  9.0 us/s;;;;;Timer;pm_suspend_timer_fn;    0 mW  
+  7.7 us/s;;;;;Timer;mix_interrupt_randomness;    0 mW  
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+
+
+The system baseline power is estimated at:  3.14  W;
+____________________________________________________________________
+ *  *  *   Device Power Report   *  *  *
+
+Usage;Device Name;PW Estimate
+ 88.2%;CPU use;  3.14 W   
+259.5 pkts/s;Network interface: wlan0 (brcmfmac);           
+100.0%;runtime-fef00700.hdmi;           
+100.0%;Radio device: brcmfmac;           
+100.0%;radio:hci0;           
+100.0%;PCI Device: VIA Technologies, Inc. VL805 USB 3.0 Host Controller;           
+100.0%;PCI Device: Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge;           
+  0.0%;runtime-fixedregulator_3v3;           
+  0.0%;USB device: xHCI Host Controller;           
+  0.0%;runtime-fe104000.rng;           
+  0.0%;runtime-reg-dummy;           
+  0.0%;runtime-fd580000.ethernet;           
+  0.0%;runtime-vcsm-cma;           
+  0.0 pkts/s;Network interface: eth0 (bcmgenet);           
+  0.0%;USB device: xHCI Host Controller;           
+  0.0%;USB device: USB2.0 Hub;           
+  0.0%;runtime-3ef63260.nvram;           
+  0.0%;runtime-3ef62e20.nvram;           
+  0.0%;runtime-fec12000.pixelvalve;           
+  0.0%;runtime-fe300000.mmcnr;           
+  0.0%;runtime-fixedregulator_5v0;           
+  0.0%;runtime-bcm2835-wdt;           
+  0.0%;runtime-soc:firmware:vcio;           
+  0.0%;runtime-soc:firmware:reset;           
+  0.0%;runtime-fe200000.gpiomem;           
+  0.0%;runtime-gpu;           
+  0.0%;runtime-fef04500.i2c;           
+  0.0%;runtime-fe101000.cprman;           
+  0.0%;runtime-sd_vcc_reg;           
+  0.0%;runtime-fec00000.v3d;           
+  0.0%;runtime-fe207000.pixelvalve;           
+  0.0%;runtime-scb;           
+  0.0%;runtime-sd_io_1v8_reg;           
+  0.0%;runtime-raspberrypi-cpufreq;           
+  0.0%;runtime-arm-pmu;           
+  0.0%;runtime-snd-soc-dummy;           
+  0.0%;runtime-fef00100.interrupt-controller;           
+  0.0%;runtime-fef00000.clock;           
+  0.0%;runtime-Fixed MDIO bus.0;           
+  0.0%;runtime-soc;           
+  0.0%;runtime-soc:firmware:gpio;           
+  0.0%;runtime-bcm2835-codec;           
+  0.0%;runtime-cam_dummy_reg;           
+  0.0%;runtime-leds;           
+  0.0%;runtime-fef09500.i2c;           
+  0.0%;runtime-soc:firmware:clocks;           
+  0.0%;runtime-fe20a000.pixelvalve;           
+  0.0%;runtime-fe340000.mmc;           
+  0.0%;runtime-fe007b00.dma;           
+  0.0%;runtime-hdmi-audio-codec.1.auto;           
+  0.0%;runtime-bcm2835_audio;           
+  0.0%;runtime-fe216000.pixelvalve;           
+  0.0%;runtime-fe200000.gpio;           
+  0.0%;runtime-timer;           
+  0.0%;runtime-fe215000.aux;           
+  0.0%;runtime-emmc2bus;           
+  0.0%;runtime-cpufreq-dt;           
+  0.0%;runtime-feb10000.codec;           
+  0.0%;runtime-fe00b880.mailbox;           
+  0.0%;runtime-fd5d2000.avs-monitor;           
+  0.0%;runtime-fe100000.watchdog;           
+  0.0%;runtime-fd5d2000.avs-monitor:thermal;           
+  0.0%;runtime-soc:firmware;           
+  0.0%;runtime-hdmi-audio-codec.0.auto;           
+  0.0%;runtime-ff800000.local_intc;           
+  0.0%;runtime-regulatory.0;           
+  0.0%;runtime-chosen;           
+  0.0%;runtime-fe206000.pixelvalve;           
+  0.0%;runtime-bcm2835-camera;           
+  0.0%;runtime-soc:power;           
+  0.0%;runtime-fe007000.dma;           
+  0.0%;runtime-phy;           
+  0.0%;runtime-bcm2835-isp;           
+  0.0%;runtime-fe400000.hvs;           
+  0.0%;runtime-fef05700.hdmi;           
+  0.0%;runtime-fe00b840.mailbox;           
+  0.0%;runtime-kgdboc;           
+  0.0%;runtime-fd500000.pcie;           
+  0.0%;runtime-unimac-mdio.-19;           
+  0.0%;runtime-fe004000.txp;           
+  0.0%;runtime-cam1_regulator;           
+  0.0%;runtime-bcm2835-power;           
+  0.0%;runtime-raspberrypi-hwmon;           
+  0.0%;runtime-v3dbus;           
+  0.0%;I2C Adapter (i2c-20): fef04500.i2c;           
+  0.0%;I2C Adapter (i2c-21): fef09500.i2c;           
+____________________________________________________________________
+ *  *  *   Process Device Activity   *  *  *
+
+Process;Device
+systemd;/dev/autofs
+;/dev/kmsg
+;/dev/rfkill
+systemd-journal;/dev/kmsg
+;/dev/kmsg
+systemd-logind;/dev/input/event0
+;/dev/input/event1
+thd;/dev/input/event0
+;/dev/input/event1
+rngd;/dev/hwrng
+;/dev/random
+vncserver-x11-c;/dev/console
+wpa_supplicant;/dev/rfkill
+;/dev/rfkill
+Xorg;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+;/dev/dri/renderD128
+;/dev/input/event0
+;/dev/input/event1
+;/dev/vga_arbiter
+pulseaudio;/dev/snd/controlC0
+pi-greeter;/dev/dri/card1
+;/dev/dri/card1
+;/dev/dri/renderD128
+gvfsd-fuse;/dev/fuse
+bluetoothd;/dev/rfkill
+pulseaudio;/dev/snd/controlC0
+
+____________________________________________________________________
+ *  *  *   AHCI ALPM Residency Statistics - Not supported on this macine   *  *  *
+
+____________________________________________________________________
+ *  *  *   Software Settings in Need of Tuning   *  *  *
+
+Description;Script
+VM writeback timeout;echo '1500' > '/proc/sys/vm/dirty_writeback_centisecs';
+Runtime PM for PCI Device VIA Technologies, Inc. VL805 USB 3.0 Host Controller;echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control';
+Runtime PM for PCI Device Broadcom Inc. and subsidiaries BCM2711 PCIe Bridge;echo 'auto' > '/sys/bus/pci/devices/0000:00:00.0/power/control';
+____________________________________________________________________
+ *  *  *   Untunable Software Issues   *  *  *
+
+Description
+I2C Adapter i2c-20 has no runtime power management
+I2C Adapter i2c-21 has no runtime power management
+____________________________________________________________________
+ *  *  *   Optimal Tuned Software Settings   *  *  *
+
+Description
+Wireless Power Saving for interface wlan0
+Bluetooth device interface status
+Autosuspend for USB device xHCI Host Controller [usb1]
+Autosuspend for USB device USB2.0 Hub [1-1]
+Autosuspend for USB device xHCI Host Controller [usb2]
+
