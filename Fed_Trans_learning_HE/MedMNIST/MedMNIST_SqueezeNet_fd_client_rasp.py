@@ -207,8 +207,8 @@ local_epochs = 1 # default
 
 total_encrypt_time = 0
 total_decrypt_time = 0
-total_compress_time = 0
-total_decompress_time = 0
+# total_compress_time = 0
+# total_decompress_time = 0
 # ## Socket initialization
 # ### Required socket functions
 
@@ -221,7 +221,7 @@ def send_msg(sock, msg, encrypt=True):
     # prefix each message with a 4-byte length in network byte order
     global total_encrypt_time
     global sending_speeds
-    global total_compress_time
+    # global total_compress_time
     if encrypt:
         encrypt_start = time.time()
         plain_ten = ts.plain_tensor(msg)
@@ -232,10 +232,10 @@ def send_msg(sock, msg, encrypt=True):
     else:        
         msg = pickle.dumps(msg)
         
-    compress_start = time.time()
-    msg = zlib.compress(msg)
-    compress_end = time.time()
-    total_compress_time += (compress_end - compress_start)
+    # compress_start = time.time()
+    # msg = zlib.compress(msg)
+    # compress_end = time.time()
+    # total_compress_time += (compress_end - compress_start)
     
     msg = struct.pack('>I', len(msg)) + msg
     msg_size = len(msg)
@@ -248,7 +248,7 @@ def send_msg(sock, msg, encrypt=True):
 def recv_msg(sock, decrypt=True):
     # read message length and unpack it into an integer
     global total_decrypt_time
-    global total_decompress_time
+    # global total_decompress_time
     raw_msglen = recvall(sock, 4)
     if not raw_msglen:
         return None
@@ -256,10 +256,10 @@ def recv_msg(sock, decrypt=True):
     # read the message data
     msg =  recvall(sock, msglen)
     
-    decompress_start = time.time()
-    msg = zlib.decompress(msg)
-    decompress_end = time.time()
-    total_decompress_time += (decompress_end - decompress_start)
+    # decompress_start = time.time()
+    # msg = zlib.decompress(msg)
+    # decompress_end = time.time()
+    # total_decompress_time += (decompress_end - decompress_start)
     
     if decrypt:
         decrypt_start = time.time()
@@ -370,8 +370,8 @@ end_time = time.time()  #store end time
 print("Training Time: {} sec".format(end_time - start_time))
 print(f'Total encryption time: {total_encrypt_time}')
 print(f'Total decryption time: {total_decrypt_time}')
-print(f'Total compression time: {total_compress_time}')
-print(f'Total decompression time: {total_decompress_time}')
+# print(f'Total compression time: {total_compress_time}')
+# print(f'Total decompression time: {total_decompress_time}')
 print(f'average sending speed: {sum(sending_speeds)/len(sending_speeds)}')
 print(f'average receiving speed: {sum(receiving_speeds)/len(receiving_speeds)}')
 
