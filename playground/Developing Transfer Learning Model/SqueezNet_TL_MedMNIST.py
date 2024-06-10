@@ -32,7 +32,7 @@ import random
 
 torch.manual_seed(42)
 
-dataset_name = "breastmnist"
+dataset_name = "pneumoniamnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
