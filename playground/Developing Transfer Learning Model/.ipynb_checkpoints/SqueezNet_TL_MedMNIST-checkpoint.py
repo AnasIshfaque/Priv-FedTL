@@ -19,6 +19,7 @@ import copy
 import random
 import shutil
 import glob
+import csv
 import torchmetrics
 from pathlib import Path
 from torchmetrics.classification import Accuracy, Precision, Recall, F1Score
@@ -76,6 +77,22 @@ def print_metrics(metrics):
     print(f'Average F1 score: {metrics["f1"]:.4f}')
     # print(f'Average Time elapsed: {metrics["time"]:.4f} seconds')
 
+def save_list_to_csv(data, filename):
+  """Saves all values in a list to a CSV file.
+
+  Args:
+      data: The list containing the values to be saved.
+      filename: The name of the CSV file to create.
+  """
+
+  # Open the CSV file in write mode with proper newline handling
+  with open(filename, 'w', newline='') as csvfile:
+    csv_writer = csv.writer(csvfile)
+
+    # Write each value in the list to a separate row
+    for item in data:
+      csv_writer.writerow([item])  # Wrap in a list for proper formatting
+        
 printPerformance()
 
 process = subprocess.Popen(["./check_device.sh"])
@@ -262,6 +279,10 @@ def train_model(model, dataset_name, criterion, optimizer, scheduler,  dataloade
     metrics['recall'] = recall.compute()
     metrics['f1'] = f1.compute()
 
+    save_list_to_csv(train_acc_list, "train_acc.csv")
+    save_list_to_csv(val_acc_list, "val_acc.csv")
+    save_list_to_csv(train_loss_list, "train_loss.csv")
+    save_list_to_csv(val_loss_list, "val_loss.csv")
 
     #load best model weights
     model.load_state_dict(best_model_wts)
