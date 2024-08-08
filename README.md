@@ -20,7 +20,7 @@ pip install tenseal
 ```
 **Client - RaspbianOS** :
 We used the Raspberry Pi 4 Model B as the client device. Follow the steps below to setup the Rasberry Pi:
-1. Download [custom OS]{https://github.com/Qengineering/RPi-Bullseye-DNN-image} image file and burn it in a 32 GB sd card
+1. Download [custom OS](https://github.com/Qengineering/RPi-Bullseye-DNN-image) image file and burn it in a 32 GB sd card
 2. Uninstall Paddle-Lite if not needed as it takes a lot of storage:
 ```	
 du -s * | sort -nr | head -n10
