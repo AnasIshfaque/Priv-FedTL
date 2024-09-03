@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # CIFAR10 Federated Mobilenet Client Side
-# This code is the server part of CIFAR10 federated mobilenet for **multi** client and a server.
+# # MedMNIST Federated SqueezeNet Client Side
+# This code is the server part of MedMNIST federated SqueezeNet for **multi** client and a server.
 
 # In[3]:
 
@@ -48,7 +48,7 @@ from torch.utils.data import Subset
 
 # In[2]:
 
-dataset_name = "pneumoniamnist"
+dataset_name = "pneumoniamnist" # or "breastmnist"
 model_name = "squeezenet"
 
 def getFreeDescription():

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # CIFAR10 Federated Mobilenet Client Side
-# This code is the server part of CIFAR10 federated mobilenet for **multi** client and a server.
+# # MedMNIST Federated Transfer learning with HE SqueezeNet Client Side
+# This code is the client part of MedMNIST federated TL with HE SqueezeNet for **multi** client and a server.
 
 # In[3]:
 
@@ -52,7 +52,7 @@ import tenseal as ts
 
 # In[2]:
 
-dataset_name = "pneumoniamnist"
+dataset_name = "pneumoniamnist" # or "breastmnist"
 model_name = "squeezenet"
 
 def getFreeDescription():
