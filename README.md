@@ -2,6 +2,13 @@
 Code base for our implementation of Priv-FedTL. Follow the instructions below to setup the server and client devices for conducting the experiments.
 
 ## Environment setup
+On both types of devices execute the following commands to create and activate a virtual environment named 'testenv' (you can change this name to your preference):
+```
+python3 -m venv testenv 
+```
+```
+source activate testenv/bin/activate
+```
 **Server - Linux (Debian)** :
 ```
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
