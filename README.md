@@ -9,6 +9,10 @@ python3 -m venv testenv
 ```
 source activate testenv/bin/activate
 ```
+Also, install the [MedMNIST](https://github.com/MedMNIST/MedMNIST) package:
+```
+pip install medmnist
+```
 **Server - Linux (Debian)** :
 ```
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu118
